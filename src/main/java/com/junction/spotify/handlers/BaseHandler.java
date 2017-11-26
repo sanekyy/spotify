@@ -1,7 +1,6 @@
 package com.junction.spotify.handlers;
 
 import com.junction.spotify.MyService;
-import com.sun.istack.internal.NotNull;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -10,20 +9,18 @@ import java.io.IOException;
 public class BaseHandler implements HttpHandler {
     private static final String PREFIX_API_KEY = "APIkey=";
 
-    @NotNull
     private final MyService service;
-    @NotNull
     HttpHandler handler;
 
-    BaseHandler(@NotNull MyService service) {
+    BaseHandler(MyService service) {
         this.service = service;
 
     }
 
     public static synchronized void sendResponse(
-            @NotNull final HttpExchange httpExchange,
+            final HttpExchange httpExchange,
             final int code,
-            @NotNull final byte[] body) {
+            final byte[] body) {
         try {
             httpExchange.sendResponseHeaders(code, body.length);
             httpExchange.getResponseBody().write(body);
@@ -45,8 +42,7 @@ public class BaseHandler implements HttpHandler {
         }
     }
 
-    @NotNull
-    String extractAPIkey(@NotNull final String query) {
+    String extractAPIkey(final String query) {
         String[] subqueries = query.split("&");
 
         for (String subquery : subqueries) {
