@@ -1,14 +1,9 @@
 package com.junction.spotify.handlers;
 
 import com.junction.spotify.MyService;
-import com.junction.spotify.retrofit.RestService;
 import com.sun.istack.internal.NotNull;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
@@ -25,18 +20,6 @@ public class BaseHandler implements HttpHandler {
 
     }
 
-    @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
-        try {
-            handler.handle(httpExchange);
-        } catch (IllegalArgumentException e) {
-            sendResponse(httpExchange, Code.BAD_REQUEST, Body.BAD_REQUEST);
-            httpExchange.close();
-        } catch (Exception e) {
-            httpExchange.close();
-        }
-    }
-
     public static synchronized void sendResponse(
             @NotNull final HttpExchange httpExchange,
             final int code,
@@ -46,6 +29,18 @@ public class BaseHandler implements HttpHandler {
             httpExchange.getResponseBody().write(body);
         } catch (IOException ignored) {
         } finally {
+            httpExchange.close();
+        }
+    }
+
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+        try {
+            handler.handle(httpExchange);
+        } catch (IllegalArgumentException e) {
+            sendResponse(httpExchange, Code.BAD_REQUEST, Body.BAD_REQUEST);
+            httpExchange.close();
+        } catch (Exception e) {
             httpExchange.close();
         }
     }

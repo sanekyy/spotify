@@ -50,7 +50,7 @@ class FindSimilar {
         AudioWrapper currTrack = audioAnalyses.remove(0);
         playlist.add(currTrack);
 
-        while (playlist.size() < 5) {
+        while (playlist.size() < 10) {
             for (AudioWrapper track : audioAnalyses) {
                 if (currTrack.audioAnalysis.track.mode == track.audioAnalysis.track.mode &&
                         currTrack.audioAnalysis.track.modeConfidence > 0.2 && track.audioAnalysis.track.modeConfidence > 0.2) {

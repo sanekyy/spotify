@@ -5,7 +5,6 @@ import com.junction.spotify.retrofit.RestService;
 import com.sun.istack.internal.NotNull;
 import com.sun.net.httpserver.HttpServer;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,11 +32,6 @@ public class MyService {
 
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-
-        httpClient.addInterceptor(logging);
 
         restService = new Retrofit.Builder()
                 .baseUrl("https://api.spotify.com/v1/")
