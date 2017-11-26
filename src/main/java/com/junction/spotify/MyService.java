@@ -2,7 +2,6 @@ package com.junction.spotify;
 
 import com.junction.spotify.handlers.MakePlaylist;
 import com.junction.spotify.retrofit.RestService;
-import com.sun.istack.internal.NotNull;
 import com.sun.net.httpserver.HttpServer;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -13,10 +12,8 @@ import java.net.InetSocketAddress;
 
 public class MyService {
 
-    @NotNull
     public static RestService restService;
 
-    @NotNull
     private final HttpServer server;
 
     public MyService() throws IOException {
